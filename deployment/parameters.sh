@@ -14,6 +14,7 @@
 
 IDC_LOGIN_URL=https://khiemnd.awsapps.com/start
 REGION=ap-southeast-1
+TEAM_ACCOUNT=359672545978
 ORG_MASTER_PROFILE=default
 TEAM_ACCOUNT_PROFILE=default
 TEAM_ADMIN_GROUP="TEAMAdmins"
