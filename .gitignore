@@ -13,7 +13,7 @@
 
 # deployment
 # /deployment/parameters.sh
-/deployment/details.json
+# /deployment/details.json
 /ignore
 
 # misc
