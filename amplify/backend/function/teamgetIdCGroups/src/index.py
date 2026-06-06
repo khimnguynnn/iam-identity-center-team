@@ -3,8 +3,19 @@
 # http: // aws.amazon.com/agreement or other written agreement between Customer and either
 # Amazon Web Services, Inc. or Amazon Web Services EMEA SARL or both.
 from botocore.exceptions import ClientError
+from datetime import datetime
 import boto3
 from operator import itemgetter
+
+
+def sanitize(obj):
+    if isinstance(obj, datetime):
+        return obj.isoformat()
+    if isinstance(obj, dict):
+        return {k: sanitize(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [sanitize(i) for i in obj]
+    return obj
 
 def get_identiy_store_id():
     client = boto3.client('sso-admin')
@@ -26,7 +37,7 @@ def list_idc_groups(IdentityStoreId):
         all_groups = []
         for page in paginator:
             all_groups.extend(page["Groups"])
-        return sorted(all_groups, key=itemgetter('DisplayName'))
+        return sanitize(sorted(all_groups, key=itemgetter('DisplayName')))
     except ClientError as e:
         print(e.response['Error']['Message'])
 
